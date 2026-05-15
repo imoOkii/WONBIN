@@ -1,1 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
+/* 图片容器：相对定位，让绝对定位的播放键相对于图片定位 */
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    background-color: #1a141c; /* 图片加载前或留白区域背景色 */
+}
+
+/* 图片：宽度100%，高度自适应，保证完整显示 */
+.bg-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    user-select: none;
+    pointer-events: none; /* 让图片不干扰按钮点击 */
+}
+
+/* ========== 播放键通用样式 ========== */
+.play-btn {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 235, 210, 0.95);
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,200,150,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+/* 扩大点击区域 */
+.play-btn::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.play-btn:hover { transform: scale(1.1); background: #FFD7A5; }
+.play-btn:active { transform: scale(0.95); }
+
+/* 播放三角形图标 */
+.play-icon {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 0 7px 12px;
+    border-color: transparent transparent transparent #2A241F;
+    margin-left: 3px;
+}
+
+/* 播放中的高亮 */
+.play-btn.playing {
+    background: #FFD39F;
+    box-shadow: 0 0 0 2px #FFA759;
+}
+.play-btn.playing .play-icon {
+    border-left-color: #C23B1A;
+}
+
+/* ========== 三个播放键的位置（基于图片宽度的百分比） ========== */
+/* 请根据您图片中语音条的实际位置微调 top 百分比 */
+.play-btn-1 {
+    left: 5%;      /* 水平位置固定 */
+    top: 68%;      /* 第一条语音，可修改 */
+}
+.play-btn-2 {
+    left: 5%;
+    top: 75%;      /* 第二条语音 */
+}
+.play-btn-3 {
+    left: 5%;
+    top: 82%;      /* 第三条语音 */
+}
+
+/* 微调指南：在电脑上用浏览器开发者工具的响应式模式测试不同手机，修改 top 百分比直到对齐语音条，一次修改所有设备同步生效 */
+
+/* 错误提示 */
+.error-tip {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.75);
+    color: #FFB379;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 40px;
+    z-index: 99;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-family: monospace;
+}
